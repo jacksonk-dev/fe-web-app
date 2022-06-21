@@ -1,16 +1,21 @@
 # FE Web App
+## To checkout the hosted app
+Visit https://fe-web-app-7322c.web.app
 ## To run the application from the source code
 
 In the project directory, you can run:
 ### `npm install` or `yarn install`
 This installs all project dependencies. Necessary before you attempt to run the application
-### `npm start`
+### `npm start` after installing dependencies
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- The app starts out blank. Use the fab with a plus ( + ) icon in the bottom right corner to add todos.
+- Pagination kicks in when you exceed 5 todos
+- The `/todos` page displays a list of todos showing only the titles. Click on a todo to go to the `/todos/:id` page showing details of the todo as well as an edit link.
+- To update or delete a todo, click `Edit Todo` on the `/todos/:id` page which then takes you to the edit form.
+- You can always click on the app title ("Your Todos") in the header to go back to the todos page.
 
 ### `npm test`
 
