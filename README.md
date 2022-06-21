@@ -1,7 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+# FE Web App
 ## To run the application from the source code
 
 In the project directory, you can run:
