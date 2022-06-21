@@ -5,15 +5,38 @@
 .App-header {
   background-color: #282c34;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: 24px;
   color: white;
   height: 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
 }
 
-.headerText {
+.Content-Container {
+  width: 95%;
+  margin: auto;
+  margin-top: 8px;
+  position: relative;
+  top: 100px;
+}
+
+@media screen and (min-width: 768px) {
+  .Content-Container {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .Content-Container {
+    width: 50%;
+  }
+}
+
+.Header-Text {
   color: inherit;
   text-decoration: none;
 }
