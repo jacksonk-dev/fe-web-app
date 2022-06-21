@@ -1,25 +1,21 @@
 import { useParams } from 'react-router-dom'
 
 import { useTodo } from 'App/store/selectors'
-
-import Form from '.'
+import { EditLink } from './components'
 
 export default function Todo() {
-  const { id, edit } = useParams()
+  const { id } = useParams()
   const todo = useTodo(id - 1)
 
   if (!todo) return null
 
-  if (!!edit) {
-    return
-  }
-
   return (
     <div>
-      <p>
+      <h3>
         {todo.title}
-      </p>
+      </h3>
       <p>{todo.description}</p>
+      <EditLink to={`/todos/edit/${id}`}>Edit Todo</EditLink>
     </div>
   )
 }

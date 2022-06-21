@@ -11,14 +11,19 @@ const Form = styled.form`
   justify-content: center;
   flex-direction: column;
   grid-gap: 16px;
-  max-width: 90%;
-  min-width: 400px;
-  width: 400px;
+  width: 90%;
   margin: auto;
-  height: calc(100vh - 100px)
+  height: calc(100vh - 100px);
+  @media screen and (min-width: 768px){
+    width: 500px;
+  }
+`
+const FormTitle = styled.p`
+  font-weight: 550;
+  font-size: 24px;
 `
 const Input = styled.input`
-  padding: 8px
+  padding: 8px;
 `
 const TextArea = styled.textarea`
   padding: 8px
@@ -31,15 +36,19 @@ const ButtonsContainer = styled.div`
 `
 const SubmitButton = styled.button`
   background-color: #282c34;
-  padding: 8px;
+  padding: 10px;
   color: #fff;
   width: 100px;
+  border: none;
+  opacity: ${(props) => props.disabled ? 0.5 : 1}
 `
 const DeleteButton = styled.button`
   background-color: #B71C1C;
   color: #fff;
   width: 100px;
   margin-left: 8px;
+  padding: 10px;
+  border: none;
 `
 
 export default function TodoForm() {
@@ -85,8 +94,8 @@ export default function TodoForm() {
   }
 
   return (
-    <Form onSubmit={onSubmit}>
-      <p>{id && todo ? 'Edit' : 'Create'} Todo</p>
+    <Form onSubmit={!!title ? onSubmit : undefined}>
+      <FormTitle>{id && todo ? 'Edit' : 'Create'} Todo</FormTitle>
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -98,7 +107,7 @@ export default function TodoForm() {
         placeholder="Description"
       />
       <ButtonsContainer>
-        <SubmitButton>Save</SubmitButton>
+        <SubmitButton disabled={!title}>Save</SubmitButton>
         {
           id && todo &&
           (
