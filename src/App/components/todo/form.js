@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { useTodos } from 'App/store/selectors'
+import { useTodo } from 'App/store/selectors'
 import { addTodo, editTodo, deleteToDo } from "App/store/todosSlice"
 import styled from 'styled-components'
 
@@ -44,8 +44,9 @@ const DeleteButton = styled.button`
 
 export default function TodoForm() {
   const { id } = useParams()
-  const todos = useTodos()
+  const todo = useTodo(id - 1)
 
+  const [actualId, setActualId] = useState()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
@@ -54,18 +55,24 @@ export default function TodoForm() {
 
   useEffect(() => {
     if (id) {
-      setTitle(todos[id - 1]?.title)
-      setDescription(todos[id - 1]?.description)
+      setActualId(id - 1)
     }
-  }, [id, todos])
+  }, [id])
+
+  useEffect(() => {
+    if (todo) {
+      setTitle(todo.title)
+      setDescription(todo.description)
+    }
+  }, [todo])
 
   const onSubmit = (e) => {
     e.preventDefault()
 
     const newTodo = { title, description }
-    if (id) {
-      dispatch(editTodo({ id: id - 1, data: newTodo }))
-      navigate(`/todos/${id - 1}`)
+    if (actualId !== undefined && todo) {
+      dispatch(editTodo({ id: actualId, data: newTodo }))
+      navigate(`/todos/${id}`)
     } else {
       dispatch(addTodo(newTodo))
       navigate("/todos")
@@ -73,13 +80,13 @@ export default function TodoForm() {
   }
 
   const onDeleteClick = () => {
-    dispatch(deleteToDo(id - 1))
+    dispatch(deleteToDo(actualId))
     navigate("/todos")
   }
 
   return (
     <Form onSubmit={onSubmit}>
-      <p>{id ? 'Edit' : 'Create'} Todo</p>
+      <p>{id && todo ? 'Edit' : 'Create'} Todo</p>
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -93,7 +100,7 @@ export default function TodoForm() {
       <ButtonsContainer>
         <SubmitButton>Save</SubmitButton>
         {
-          id &&
+          id && todo &&
           (
             <DeleteButton
               type="button"
