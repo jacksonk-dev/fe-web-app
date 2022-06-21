@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, NavLink } from "react-router-dom";
 
 import Todos from './components/todos'
 import TodoForm from './components/todo/form'
@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h3>Your Todos</h3>
+        <NavLink className="headerText" to="/"><h3>Your Todos</h3></NavLink>
       </header>
       <Routes>
         <Route path="/" element={<Navigate to="/todos" />} />
