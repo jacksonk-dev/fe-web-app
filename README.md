@@ -1,4 +1,6 @@
 # FE Web App
+## To checkout the hosted app
+Visit https://fe-web-app-7322c.web.app
 ## To run the application from the source code
 
 In the project directory, you can run:
