@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Todos from './components/todos'
-import TodoForm from './components/todos/form'
+import TodoForm from './components/todo/form'
 import './index.css';
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/todos" />} />
         <Route path="/todos/add" element={<TodoForm />} />
+        <Route path="/todos/edit/:id" element={<TodoForm />} />
         <Route path="/todos/*" element={<Todos />} />
       </Routes>
     </div>

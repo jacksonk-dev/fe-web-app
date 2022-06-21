@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { add } from "App/store/todosSlice"
+import { useNavigate, useParams } from 'react-router-dom'
+
+import { useTodos } from 'App/store/selectors'
+import { addTodo, editTodo } from "App/store/todosSlice"
 import styled from 'styled-components'
 
 const Form = styled.form`
@@ -12,9 +14,7 @@ const Form = styled.form`
   width: 400px;
   margin: auto;
 `
-const Input = styled.input`
-
-`
+const Input = styled.input``
 const TextArea = styled.textarea``
 const SubmitButton = styled.button`
   background-color: #282c34;
@@ -23,17 +23,31 @@ const SubmitButton = styled.button`
 `
 
 export default function TodoForm() {
+  const { id } = useParams()
+  const todos = useTodos()
+
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setTitle(todos[id - 1]?.title)
+    setDescription(todos[id - 1]?.description)
+  }, [id, todos])
 
   const onSubmit = (e) => {
     e.preventDefault()
 
     const newTodo = { title, description }
-    dispatch(add(newTodo))
-    navigate("/todos")
+    if (id) {
+      dispatch(editTodo({ id: id - 1, data: newTodo }))
+      navigate(`/todos/${id - 1}`)
+    } else {
+      dispatch(addTodo(newTodo))
+      navigate("/todos")
+    }
   }
 
   return (
@@ -46,7 +60,9 @@ export default function TodoForm() {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <SubmitButton>Add</SubmitButton>
+      <div>
+        <SubmitButton>{id ? 'Edit' : 'Add'}</SubmitButton>
+      </div>
     </Form>
   )
 }
