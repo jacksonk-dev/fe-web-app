@@ -4,9 +4,9 @@ export const Fab = styled.button`
   position: fixed;
   bottom: 8px;
   right: 8px;
-  font-size: 32px;
-  width: 40px;
-  height: 40px;
+  font-size: 36px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;

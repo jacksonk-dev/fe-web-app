@@ -40,16 +40,11 @@ export default function Todos() {
 
   const firstItemIndex = itemsPerPage * (currentPage - 1);
 
-  if (currentPage > numPages) {
-    return (
-      <p>No todos to show for this page.</p>
-    )
-  }
-
   const todosOnPage = todos?.slice(
     firstItemIndex,
     firstItemIndex + itemsPerPage
   )
+
   return (
     <>
       <p>Page: {currentPage}, Showing {todosOnPage.length} of {todos.length} todos</p>
